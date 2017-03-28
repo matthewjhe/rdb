@@ -1,0 +1,13 @@
+{
+    "memo": "fe3d778b7939daa14c4c85b19faf1496b476710b9aa988448787cd10d6a69b26",
+    "projects": [
+        {
+            "name": "github.com/pkg/errors",
+            "version": "v0.8.0",
+            "revision": "3866ebc348c54054262feae422da428fe6cf147d",
+            "packages": [
+                "."
+            ]
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "github.com/pkg/errors": {
+            "version": "v0.8.0"
+        }
+    }
+}
