@@ -17,6 +17,6 @@ func TestMmap(t *testing.T) {
 		t.Fatal(err)
 	}
 	if !bytes.Equal(got, want) {
-		t.Fatal("got: %v, want: %v", got, want)
+		t.Fatalf("got: %v, want: %v", got, want)
 	}
 }

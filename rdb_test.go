@@ -6,7 +6,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"sync"
 	"testing"
 
 	"github.com/pkg/errors"
@@ -17,11 +16,11 @@ const (
 )
 
 func TestMain(m *testing.M) {
-	__20kbytes, err := ioutil.ReadFile("testdata/.20kbytes")
+	data, err := ioutil.ReadFile("testdata/.20kbytes")
 	if err != nil {
 		log.Fatal(err)
 	}
-	_20kbytes = strings.TrimSpace(string(__20kbytes))
+	_20kbytes = strings.TrimSpace(string(data))
 	initTestCases()
 	os.Exit(m.Run())
 }
@@ -131,12 +130,12 @@ func initTestCases() {
 
 	set := &setFilter{
 		want: map[interface{}]struct{}{
-			"alpha": struct{}{},
-			"beta":  struct{}{},
-			"gamma": struct{}{},
-			"delta": struct{}{},
-			"phi":   struct{}{},
-			"kappa": struct{}{},
+			"alpha": {},
+			"beta":  {},
+			"gamma": {},
+			"delta": {},
+			"phi":   {},
+			"kappa": {},
 		},
 		wantEncoding: "hashtable",
 	}
@@ -149,9 +148,9 @@ func initTestCases() {
 
 	intset64 := &setFilter{
 		want: map[interface{}]struct{}{
-			0x7ffefffefffefffe: struct{}{},
-			0x7ffefffefffefffd: struct{}{},
-			0x7ffefffefffefffc: struct{}{},
+			0x7ffefffefffefffe: {},
+			0x7ffefffefffefffd: {},
+			0x7ffefffefffefffc: {},
 		},
 		wantEncoding: "intset",
 	}
@@ -164,9 +163,9 @@ func initTestCases() {
 
 	intset32 := &setFilter{
 		want: map[interface{}]struct{}{
-			0x7ffefffe: struct{}{},
-			0x7ffefffd: struct{}{},
-			0x7ffefffc: struct{}{},
+			0x7ffefffe: {},
+			0x7ffefffd: {},
+			0x7ffefffc: {},
 		},
 		wantEncoding: "intset",
 	}
@@ -179,9 +178,9 @@ func initTestCases() {
 
 	intset16 := &setFilter{
 		want: map[interface{}]struct{}{
-			0x7ffe: struct{}{},
-			0x7ffd: struct{}{},
-			0x7ffc: struct{}{},
+			0x7ffe: {},
+			0x7ffd: {},
+			0x7ffc: {},
 		},
 		wantEncoding: "intset",
 	}
@@ -640,7 +639,6 @@ func (f *sortedsetFilter) validate(t *testing.T) {
 // test helpers
 
 type testEmptyFilter struct {
-	sync.Mutex
 	t *testing.T
 }
 
