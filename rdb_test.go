@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 	"testing"
 
 	"github.com/pkg/errors"
@@ -639,33 +640,34 @@ func (f *sortedsetFilter) validate(t *testing.T) {
 // test helpers
 
 type testEmptyFilter struct {
+	sync.Mutex
 	t *testing.T
 }
 
-func (f testEmptyFilter) Key(k Key) bool     { return false }
-func (f testEmptyFilter) Type(_ Type) bool   { return false }
-func (f testEmptyFilter) Database(_ DB) bool { return false }
-func (f testEmptyFilter) Set(v *Set) {
+func (f *testEmptyFilter) Key(k Key) bool     { return false }
+func (f *testEmptyFilter) Type(_ Type) bool   { return false }
+func (f *testEmptyFilter) Database(_ DB) bool { return false }
+func (f *testEmptyFilter) Set(v *Set) {
 	if debug {
 		log.Println("set:", v.Key.Key, v.Values)
 	}
 }
-func (f testEmptyFilter) List(v *List) {
+func (f *testEmptyFilter) List(v *List) {
 	if debug {
 		log.Println("list:", v.Key.Key, v.Values)
 	}
 }
-func (f testEmptyFilter) Hash(v *Hash) {
+func (f *testEmptyFilter) Hash(v *Hash) {
 	if debug {
 		log.Println("hash:", v.Key.Key, v.Values)
 	}
 }
-func (f testEmptyFilter) String(v *String) {
+func (f *testEmptyFilter) String(v *String) {
 	if debug {
 		log.Println("string:", v.Key.Key, v.Value)
 	}
 }
-func (f testEmptyFilter) SortedSet(v *SortedSet) {
+func (f *testEmptyFilter) SortedSet(v *SortedSet) {
 	if debug {
 		log.Println("sortedset:", v.Key.Key, v.Values)
 	}
